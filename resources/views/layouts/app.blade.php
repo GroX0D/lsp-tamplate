@@ -20,14 +20,25 @@
 <!-- NAVBAR -->
 <nav x-data="{open:false}" class="fixed w-full z-50 bg-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 class="font-bold text-xl">LOGO</h1>
+        <a href="{{ route('home') }}" class="font-bold text-xl">{{ $settings->site_name ?? 'LSP' }}</a>
 
         <!-- desktop -->
         <div class="hidden md:flex gap-6">
-            <a href="#home" class="hover:text-blue-500">Home</a>
-            <a href="#about" class="hover:text-blue-500">About</a>
-            <a href="#clients" class="hover:text-blue-500">Clients</a>
-            <a href="#contact" class="hover:text-blue-500">Contact</a>
+            <a href="{{ route('home') }}" class="hover:text-blue-500">Home</a>
+            <a href="{{ route('pages.show', 'tentang-kami') }}" class="hover:text-blue-500">Tentang Kami</a>
+            <a href="{{ route('skema.index') }}" class="hover:text-blue-500">Skema Sertifikasi</a>
+            <a href="{{ route('berita.index') }}" class="hover:text-blue-500">Berita</a>
+            <a href="{{ route('galeri.index') }}" class="hover:text-blue-500">Galeri</a>
+            <a href="{{ route('contact.show') }}" class="hover:text-blue-500">Kontak</a>
+            @auth
+                <span class="text-gray-300">Halo, {{ Auth::user()->name }}</span>
+                <form action="{{ route('logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="hover:text-blue-500">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="hover:text-blue-500">Login</a>
+            @endauth
         </div>
 
         <!-- hamburger -->
@@ -38,10 +49,21 @@
 
     <!-- mobile menu -->
     <div x-show="open" x-transition class="md:hidden px-4 pb-4">
-        <a href="#home" class="block py-2">Home</a>
-        <a href="#about" class="block py-2">About</a>
-        <a href="#clients" class="block py-2">Clients</a>
-        <a href="#contact" class="block py-2">Contact</a>
+        <a href="{{ route('home') }}" class="block py-2">Home</a>
+        <a href="{{ route('pages.show', 'tentang-kami') }}" class="block py-2">Tentang Kami</a>
+        <a href="{{ route('skema.index') }}" class="block py-2">Skema Sertifikasi</a>
+        <a href="{{ route('berita.index') }}" class="block py-2">Berita</a>
+        <a href="{{ route('galeri.index') }}" class="block py-2">Galeri</a>
+        <a href="{{ route('contact.show') }}" class="block py-2">Kontak</a>
+        @auth
+            <span class="block py-2 text-gray-300">Halo, {{ Auth::user()->name }}</span>
+            <form action="{{ route('logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" class="block py-2 hover:text-blue-500 w-full text-left">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}" class="block py-2">Login</a>
+        @endauth
     </div>
 </nav>
 
@@ -72,23 +94,6 @@
 <main>
     @yield('content')
 </main>
-
-
-<!-- CLIENT LOGO -->
-<section id="clients" class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto text-center">
-        <h2 class="text-2xl font-bold mb-10">Our Clients</h2>
-
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-6 items-center">
-            @for($i=0;$i<5;$i++)
-                <div class="p-4 grayscale hover:grayscale-0 transition">
-                    <img src="https://via.placeholder.com/150" class="mx-auto">
-                </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
 
 <!-- BACK TO TOP -->
 <button x-data @click="window.scrollTo({top:0, behavior:'smooth'})"
