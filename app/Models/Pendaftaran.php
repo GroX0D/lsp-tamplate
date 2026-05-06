@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pendaftaran extends Model
 {
+    protected $table = 'pendaftaran';
+
     protected $fillable = [
         'peserta_id',
         'skema_id',

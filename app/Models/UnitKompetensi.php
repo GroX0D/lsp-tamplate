@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UnitKompetensi extends Model
 {
+    protected $table = 'unit_kompetensi';
+
     protected $fillable = [
         'skema_id',
         'kode_unit',

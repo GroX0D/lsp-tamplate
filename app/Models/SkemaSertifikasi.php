@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SkemaSertifikasi extends Model
 {
+    protected $table = 'skema_sertifikasi';
+
     protected $fillable = [
         'nama_skema',
         'kode_skema',
